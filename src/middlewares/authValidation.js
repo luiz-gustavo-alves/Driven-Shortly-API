@@ -12,7 +12,7 @@ export const authValidation = async (req, res, next) => {
     try {
 
         const session = await authService.getToken(token);
-        if (!session) {
+        if (!session.rows[0]) {
             return res.sendStatus(401);
         }
 
