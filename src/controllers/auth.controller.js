@@ -42,7 +42,7 @@ export const signIn = async (req, res) => {
         }
 
         const token = await authService.createToken(user.rows[0].id);
-        res.send(token);
+        res.send({ token });
 
     } catch (err) {
         res.status(500).send(err.message);
