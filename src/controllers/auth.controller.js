@@ -8,6 +8,7 @@ export const signUp = async (req, res) => {
     if (confirmPassword !== password) {
         return res.sendStatus(422);
     }
+
     delete req.body.confirmPassword
 
     try {
@@ -45,6 +46,20 @@ export const signIn = async (req, res) => {
         res.send({ token });
 
     } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
+
+export const logout = async (req, res) => {
+
+    const { token } = res.locals.session;
+
+    try {
+
+        await authService.logout(token);
+        res.sendStatus(200);
+
+    }  catch (err) {
         res.status(500).send(err.message);
     }
 }
